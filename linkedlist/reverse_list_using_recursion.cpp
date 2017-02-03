@@ -120,4 +120,19 @@ void add_last( list_t* list, int data )
 
 }//end of add_last function
 
+void display_list( list_t* list )
+{
+	node_t* trav = list->head;
 
+
+	printf("\n\n\t List is : HEAD -> ");
+
+	while( trav != NULL )
+	{
+		printf("%d -> ",trav->data);
+		trav = trav->next;
+
+	}
+
+	printf(" NULL ");
+}
