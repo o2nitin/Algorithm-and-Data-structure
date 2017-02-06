@@ -99,3 +99,52 @@ int count_nodes( list_t* list )
 	return cnt;
 }
 
+node_t* find_middle_node( list_t* list )
+{
+	node_t* t1 = list->head;
+	node_t* t2 = list->head;
+
+	while( t1->next->next != NULL )
+	{
+		t1 = t1->next->next;
+		t2 = t2->next;
+
+		if( t1->next == NULL )
+			break;
+	}
+
+	return t2;
+}
+
+void init_list( list_t* list )
+{
+	list->head = list->tail = NULL;
+}
+
+node_t* create_node( int data )
+{
+	node_t* temp = malloc( sizeof(node_t) );
+
+	temp->data = data;
+	temp->next = NULL;
+
+	return temp;
+}
+
+void add_last( list_t* list, int data )
+{
+	node_t* newnode = create_node( data );
+
+	if( list->head == NULL )
+	{
+		list->head = newnode;
+		list->tail = newnode;
+	}
+	else
+	{
+		list->tail->next = newnode;
+		list->tail = newnode;
+	}//end of else
+
+}//end of add_last function
+
