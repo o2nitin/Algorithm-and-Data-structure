@@ -68,3 +68,103 @@ int main( void )
 	return 0;
 }
 
+int  is_loop(list_t *list)
+{
+	node_t* t1 = list->head;
+	node_t* t2 = list->head;
+
+	while( t1->next->next != NULL )
+	{
+		if( t1->next != NULL )
+			t1 = t1->next->next;
+
+		if( t2->next != NULL )
+			t2 = t2->next;
+		
+		if( t1 == t2 )
+		{
+			return 1;
+		}
+
+
+		if( t1->next == NULL || t2->next == NULL )
+			break;
+
+		// for self loop
+
+		if( t2 == t2->next )
+			break;
+	}
+
+	return 0;
+
+}
+
+void create_loop(list_t *list,int data)
+{
+	node_t* newnode = create_node( data );
+	node_t* trav = list->head;
+	
+	
+	while( trav->next->next != NULL )
+		trav = trav->next;
+
+	newnode->next = trav;
+	list->tail->next = newnode;
+
+}
+
+
+int list_empty( list_t* list )
+{
+	return ( list->head == NULL );
+}
+
+
+void init_list( list_t* list )
+{
+	list->head = list->tail = NULL;
+}
+
+node_t* create_node( int data )
+{
+	node_t* temp = malloc( sizeof(node_t) );
+
+	temp->data = data;
+	temp->next = NULL;
+
+	return temp;
+}
+
+void add_last( list_t* list, int data )
+{
+	node_t* newnode = create_node( data );
+
+	if( list->head == NULL )
+	{
+		list->head = newnode;
+		list->tail = newnode;
+	}
+	else
+	{
+		list->tail->next = newnode;
+		list->tail = newnode;
+	}//end of else
+
+}//end of add_last function
+
+void display_list( list_t* list )
+{
+	node_t* trav = list->head;
+
+	printf("\n\n\t List is : HEAD -> ");
+
+	while( trav != NULL )
+	{
+
+		printf("%d -> ",trav->data);
+		trav = trav->next;
+	}
+
+	printf(" NULL ");
+}
